@@ -59,3 +59,5 @@ export interface SearchBarProps {
   setModel: (model: string) => void;
   setManufacturer: (manufacturer: string) => void;
 }
+
+export type CarState = CarProps[] & { message?: string };

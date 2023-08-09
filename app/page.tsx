@@ -6,11 +6,12 @@ import { CarCard, CustomFilter, Hero, SearchBar, ShowMore } from "@/components";
 import { fuels, yearsOfProduction } from "@/constants";
 
 import { fetchCars } from "@/utils";
+import { CarState } from "@/types";
 
 import Image from "next/image";
 
 export default function Home() {
-  const [allCars, setAllCars] = useState([]);
+  const [allCars, setAllCars] = useState<CarState>([]);
   const [loading, setLoading] = useState(false);
 
   // search
@@ -78,8 +79,8 @@ export default function Home() {
         {allCars.length > 0 ? (
           <section>
             <div className="home__cars-wrapper">
-              {allCars?.map((car) => (
-                <CarCard key={car} car={car} />
+              {allCars?.map((car, idx) => (
+                <CarCard key={`car-${idx}`} car={car} />
               ))}
             </div>
 
@@ -102,10 +103,12 @@ export default function Home() {
             />
           </section>
         ) : (
-          <div className="home__error-container">
-            <h2 className="text-black text-xl font-bold">Oops, no results</h2>
-            <p>{allCars?.message}</p>
-          </div>
+          !loading && (
+            <div className="home__error-container">
+              <h2 className="text-black text-xl font-bold">Oops, no results</h2>
+              <p>{allCars?.message}</p>
+            </div>
+          )
         )}
       </div>
     </main>
