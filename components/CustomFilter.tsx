@@ -2,12 +2,14 @@
 
 import { Fragment, useState } from "react";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
+
 import { Listbox, Transition } from "@headlessui/react";
 import { CustomFilterProps } from "@/types";
-import { updateSearchParams } from "@/utils";
 
-const CustomFilter = ({ title, options, setFilter }: CustomFilterProps) => {
+export default function CustomFilter<T>({
+  options,
+  setFilter,
+}: CustomFilterProps<T>) {
   const [selected, setSelected] = useState(options[0]);
 
   return (
@@ -17,7 +19,7 @@ const CustomFilter = ({ title, options, setFilter }: CustomFilterProps) => {
         onChange={(e) => {
           console.log(e);
           setSelected(e);
-          setFilter(e.value);
+          setFilter(e.value as unknown as T);
         }}
       >
         <div className="relative w-fit z-10">
@@ -65,6 +67,4 @@ const CustomFilter = ({ title, options, setFilter }: CustomFilterProps) => {
       </Listbox>
     </div>
   );
-};
-
-export default CustomFilter;
+}

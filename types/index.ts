@@ -44,7 +44,6 @@ export interface OptionProps {
 }
 
 export interface CustomFilterProps<T> {
-  title: string;
   options: OptionProps[];
   setFilter: (selected: T) => void;
 }
